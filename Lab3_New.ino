@@ -1,5 +1,5 @@
-const char* ssid     = "NTSSKHUC-125";   
-const char* password = "ntsskhuc125";  
+const char* ssid     = "<Your-Wifi-Name>";   
+const char* password = "<Your-Wifi-Pass>";  
 
 const char* apssid = "ESP32-CAM";
 const char* appassword = "12345678";         
@@ -23,8 +23,8 @@ const char* appassword = "12345678";
 #include <ArduinoJson.h>
 
 // Initialize Telegram BOT
-String BOTtoken = "7572688703:AAFC_mdeyNjzqOnEZ3AiefqZbZF0Zgt-dfU";  // your Bot Token (Get from Botfather)
-String CHAT_ID = "6514837940";
+String BOTtoken = "<Your-Bot-Token>";  // your Bot Token (Get from Botfather)
+String CHAT_ID = "<Your-Chat-ID>";
 
 bool sendPhoto = false;
 
@@ -298,7 +298,7 @@ void setup() {
     config.fb_count = 1;
   }
 
-  esp_err_t err = esp_camera_init(&config);
+  esp_err_t err = esp_camera_init(&config); // Init cam
   if (err != ESP_OK) {
     Serial.printf("Camera init failed with error 0x%x", err);
     delay(1000);
@@ -359,11 +359,15 @@ void loop() {
     String notifyMessage = "Đeo khẩu trang an toàn \n";
     bot.sendMessage(CHAT_ID, notifyMessage, "");
     sendPhoto = false;
-  } else {
-    String notifyMessage = "Không đeo khẩu trang \n";
-    bot.sendMessage(CHAT_ID, notifyMessage, "");
+  } else if (P1 == "No%20mask") {
+    sendPhotoTelegram();
+    bot.sendMessage(CHAT_ID, "Không đeo khẩu trang \n", "");
     sendPhoto = false;
-  }
+  } else if (P1 == "No%20one%20here") {
+    sendPhotoTelegram();
+    bot.sendMessage(CHAT_ID, "Không có người \n", "");
+    sendPhoto = false;
+  } 
 }
 
 
