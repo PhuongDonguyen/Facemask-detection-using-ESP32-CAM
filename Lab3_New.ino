@@ -1,4 +1,4 @@
-const char* ssid     = "phelu";   
+const char* ssid     = "phelu1";   
 const char* password = "27102003";  
 
 const char* apssid = "ESP32-CAM";
